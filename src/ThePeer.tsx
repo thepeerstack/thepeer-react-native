@@ -95,11 +95,6 @@ class Thepeer extends Component<PropTypes> {
   }
 
   componentDidUpdate() {
-    console.log(
-      'Thepeer -> componentDidUpdate -> his.props',
-      this.state.senderBusiness,
-      this.props
-    );
     const { openThePeerSdk } = this.props;
     if (!this.state.senderBusiness.logo && this.props) this.checkProps();
     if (!openThePeerSdk) this.resetSDK();
