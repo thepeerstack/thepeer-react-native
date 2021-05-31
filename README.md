@@ -2,7 +2,7 @@
 
 react-native sdk for thepeer
 
-![image of SDK](https://res.cloudinary.com/eze-mmuo/image/upload/v1622019397/peerstack/thepeer-react-native.jpg)
+<img src='https://res.cloudinary.com/eze-mmuo/image/upload/v1622019397/peerstack/thepeer-react-native.jpg' alt='image of SDK' width='250px'>
 
 
 ## Installation
