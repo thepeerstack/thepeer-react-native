@@ -135,8 +135,8 @@ class Thepeer extends Component<PropTypes> {
   };
 
   closeSDK = () => {
-    this.resetState();
     this.props.onClose();
+    this.resetState();
   };
 
   handleBackPress = () => {
