@@ -11,6 +11,7 @@ import { resheight, reswidth } from './utils';
 import axios from 'axios';
 import SDKServices from './services/sdkServices';
 import type { StateTypes, PropTypes, BusinessType } from './@types';
+import { SUCCESS } from './constants';
 
 const AnimView = Animated.View;
 
@@ -186,7 +187,7 @@ class Thepeer extends Component<PropTypes> {
     this.setState((prev) => ({ ...prev, confirmingTransaction: true }));
 
     const payload = {
-      amount: amount || 400000,
+      amount,
       remark,
       to: resolvedUser.reference,
       from: userReference,
@@ -205,7 +206,7 @@ class Thepeer extends Component<PropTypes> {
             eventType: data.event,
             seconds: 5,
           }));
-          if (data.event === 'send.success') {
+          if (data.event === SUCCESS) {
             onSuccess(data.event);
             setTimeout(() => {
               openThePeerSdk && this.closeSDK();
