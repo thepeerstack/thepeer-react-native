@@ -24,7 +24,7 @@
   "scripts": {
     "test": "jest",
     "typescript": "tsc --noEmit",
-    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "lint": "eslint \"**/*.{js,ts,tsx}\" --fix",
     "prepare": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
@@ -50,9 +50,11 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@react-native-community/eslint-config": "^2.0.0",
     "@release-it/conventional-changelog": "^2.0.0",
+    "@testing-library/jest-native": "^4.0.1",
+    "@testing-library/react-native": "^7.2.0",
     "@types/jest": "^26.0.0",
     "@types/react": "^16.9.19",
-    "@types/react-native": "0.62.13",
+    "@types/react-native": "^0.64.6",
     "commitlint": "^11.0.0",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^7.0.0",
@@ -149,5 +151,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
   }
 }

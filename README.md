@@ -2,6 +2,9 @@
 
 react-native sdk for thepeer
 
+![image of SDK](https://res.cloudinary.com/eze-mmuo/image/upload/v1622019397/peerstack/thepeer-react-native.jpg)
+
+
 ## Installation
 
 ```sh
@@ -11,11 +14,41 @@ npm install thepeer-react-native
 ## Usage
 
 ```js
-import ThepeerReactNative from "thepeer-react-native";
+import { ThePeer } from 'thepeer-react-native';
 
 // ...
+const WhateverComponent = () => {
+  // ...
+  const [openThePeerSdk, setOpenThePeerSdk] = useState(false);
+  // ...
 
-const result = await ThepeerReactNative.multiply(3, 7);
+  return (
+    <View
+      style={
+        {
+          // ...
+        }
+      }
+    >
+      // ...
+      <ThePeer
+        {...{
+          publicKey: 'PUBLIC_KEY',
+          userReference: 'USER_REFERENCE',
+          receiptUrl: 'CALLBACK_URL',
+          amount: 'AMOUNT_IN_KOBO',
+          openThePeerSdk,
+          onSuccess: (response) => console.log(response),
+          onClose: () => setOpenThePeerSdk(false),
+        }}
+      />
+      <Pressable onPress={() => setOpenThePeerSdk(true)}>
+        <Text>Send Money (Peerstack)</Text>
+      </Pressable>
+      // ...
+    </View>
+  );
+};
 ```
 
 ## Contributing
