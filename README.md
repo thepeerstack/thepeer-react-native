@@ -14,9 +14,11 @@ npm install thepeer-react-native
 ## Usage
 
 ```js
+import React from 'react';
+import { View, Pressable, Text } from 'react-native';
 import { ThePeer } from 'thepeer-react-native';
-
 // ...
+
 const WhateverComponent = () => {
   // ...
   const [openThePeerSdk, setOpenThePeerSdk] = useState(false);
