@@ -87,7 +87,7 @@ const PaneOne = ({
             />
           </View>
           <View style={genericStyles.mt30}>
-            <ThePeerText text="Select fintech" fontSize={13} />
+            <ThePeerText text="Select business" fontSize={13} />
             <View style={styles.searchInputCont}>
               <TextInput
                 placeholder="Search"

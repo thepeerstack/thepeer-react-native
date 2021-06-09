@@ -239,7 +239,7 @@ const PaneTwo = ({
               autoCorrect={false}
               defaultValue={identifier}
               placeholderTextColor={ThepeerColors.blue2}
-              onChangeText={debounce(handleInput, 500)}
+              onChangeText={debounce(handleInput, 800)}
               onFocus={() => {
                 if (!identifierError || !errorResolving) {
                   animateInput({ ref: input1AnimRef, toValue: 1 });
