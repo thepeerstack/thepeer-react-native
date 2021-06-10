@@ -22,9 +22,10 @@ const runSpringAnim = ({
   toValue: number;
   ref: Animated.Value;
 }) =>
-  Animated.spring(ref, {
+  Animated.timing(ref, {
     toValue,
     useNativeDriver: true,
+    duration: 200,
   });
 
 class Thepeer extends Component<PropTypes> {
@@ -78,11 +79,15 @@ class Thepeer extends Component<PropTypes> {
         SDKServices.resolveUserByRefService(userReference),
       ]);
       if (res[0].status === 200 && res[1].status === 200) {
-        this.setState((prev) => ({
-          ...prev,
-          senderBusiness: res[0].data.business,
-          senderUser: res[1].data,
-        }));
+        if (res[1].data.name) {
+          this.setState((prev) => ({
+            ...prev,
+            senderBusiness: res[0].data.business,
+            senderUser: res[1].data,
+          }));
+        } else {
+          console.error(res[1].data.message);
+        }
       }
     } else {
       console.error(
@@ -225,6 +230,11 @@ class Thepeer extends Component<PropTypes> {
     }
   };
 
+  handleGoBack = () => {
+    this.resetState();
+    this.resetSDK();
+  };
+
   render() {
     const {
       step,
@@ -304,7 +314,7 @@ class Thepeer extends Component<PropTypes> {
               eventType,
               receiverBusiness,
               amount,
-              resetSDK: this.resetSDK,
+              handleGoBack: this.handleGoBack,
             }}
           />
         ),
