@@ -14,6 +14,14 @@ export type BusinessType = {
   name: string;
 };
 
+export type HeaderTypes = {
+  handleBackPress: () => void;
+  handleClose: () => void;
+  step: number;
+  isTest: boolean;
+  confirmingTransaction: boolean;
+};
+
 //  leave as any or find their right type, not altering these methods in anyway... so any would suffice
 export type animatedPropsType = {
   interpolate: any;
@@ -88,11 +96,11 @@ export type PaneFourTextType = {
 };
 
 export type PaneFourImgsType = {
-  [key: string]: any;
-  [INSUFFICIENT_FUNDS]: any;
-  [USER_INSUFFICIENT_FUNDS]: any;
-  [SUCCESS]: any;
-  [ERROR]: any;
+  [key: string]: number;
+  [INSUFFICIENT_FUNDS]: number;
+  [USER_INSUFFICIENT_FUNDS]: number;
+  [SUCCESS]: number;
+  [ERROR]: number;
 };
 
 export type PaneFourPropType = {
