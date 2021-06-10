@@ -109,5 +109,5 @@ export type PaneFourPropType = {
   amount: number | string;
   eventType: string;
   identifier: string;
-  resetSDK: () => void;
+  handleGoBack: () => void;
 };

@@ -226,6 +226,11 @@ class Thepeer extends Component<PropTypes> {
     }
   };
 
+  handleGoBack = () => {
+    this.resetState();
+    this.resetSDK();
+  };
+
   render() {
     const {
       step,
@@ -305,7 +310,7 @@ class Thepeer extends Component<PropTypes> {
               eventType,
               receiverBusiness,
               amount,
-              resetSDK: this.resetSDK,
+              handleGoBack: this.handleGoBack,
             }}
           />
         ),
