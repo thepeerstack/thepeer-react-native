@@ -38,7 +38,7 @@ const PaneFour = ({
   eventType,
   amount,
   identifier,
-  resetSDK,
+  handleGoBack,
 }: PaneFourPropType) => {
   const texts: PaneFourTextType = {
     [INVALID_RECEIPT]: 'Invalid receipt url',
@@ -125,7 +125,7 @@ const PaneFour = ({
                   alignSelf: 'center',
                 },
               ]}
-              onPress={resetSDK}
+              onPress={handleGoBack}
             >
               <ThePeerText
                 {...{

@@ -22,6 +22,14 @@ import type { PaneTwoPropType, StateTypes } from '../@types';
 
 const AnimView = Animated.View;
 const AnimInput = Animated.createAnimatedComponent(TextInput);
+const limitText = (txt: string, length: number = 15) => {
+  const txtLen = txt.length;
+  if (txtLen < length) {
+    return txt;
+  } else {
+    return txt.substring(0, length) + '...';
+  }
+};
 
 const PaneTwo = ({
   receiverBusiness,
@@ -162,7 +170,7 @@ const PaneTwo = ({
                   fontWeight: 'bold',
                   fontSize: 24,
                   color: ThepeerColors.blue2,
-                  text: name,
+                  text: limitText(name),
                 }}
               />
             </View>
