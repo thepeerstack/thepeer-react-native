@@ -79,11 +79,15 @@ class Thepeer extends Component<PropTypes> {
         SDKServices.resolveUserByRefService(userReference),
       ]);
       if (res[0].status === 200 && res[1].status === 200) {
-        this.setState((prev) => ({
-          ...prev,
-          senderBusiness: res[0].data.business,
-          senderUser: res[1].data,
-        }));
+        if (res[1].data.name) {
+          this.setState((prev) => ({
+            ...prev,
+            senderBusiness: res[0].data.business,
+            senderUser: res[1].data,
+          }));
+        } else {
+          console.error(res[1].data.message);
+        }
       }
     } else {
       console.error(
