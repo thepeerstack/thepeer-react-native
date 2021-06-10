@@ -30,9 +30,10 @@ const Header = ({
       3: 1,
       4: 0,
     };
-    Animated.spring(backBtnRef, {
+    Animated.timing(backBtnRef, {
       toValue: backBtnValues[step],
       useNativeDriver: true,
+      duration: 200,
     }).start();
   }, [step, backBtnRef]);
   return (

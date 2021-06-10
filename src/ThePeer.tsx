@@ -22,9 +22,10 @@ const runSpringAnim = ({
   toValue: number;
   ref: Animated.Value;
 }) =>
-  Animated.spring(ref, {
+  Animated.timing(ref, {
     toValue,
     useNativeDriver: true,
+    duration: 200,
   });
 
 class Thepeer extends Component<PropTypes> {
