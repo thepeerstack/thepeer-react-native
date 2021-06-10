@@ -50,7 +50,7 @@ const PaneThree = ({
           {...{
             fontSize: 14,
             text: `You are about to send ${currencyFormatter(+amount)} to ${
-              identifier_type === 'email' ? null : '@'
+              identifier_type === 'email' ? '' : '@'
             }${resolvedUser.identifier} on ${name}. Do you want to proceed?`,
             textAlign: 'center',
           }}

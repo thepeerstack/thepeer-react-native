@@ -3,15 +3,8 @@ import { View, Pressable, Image, StyleSheet, Animated } from 'react-native';
 import ThePeerText from './ThePeerText';
 import ThepeerColors from '../colors';
 import { isIOS, reswidth } from '../utils';
-
+import type { HeaderTypes } from '../@types/index';
 const AnimView = Animated.View;
-type HeaderTypes = {
-  handleBackPress: any;
-  handleClose: any;
-  step: number;
-  isTest: boolean;
-  confirmingTransaction: boolean;
-};
 
 type animValuesType = {
   [key: number]: number;

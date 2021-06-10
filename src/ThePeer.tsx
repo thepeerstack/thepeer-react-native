@@ -11,7 +11,7 @@ import { resheight, reswidth } from './utils';
 import axios from 'axios';
 import SDKServices from './services/sdkServices';
 import type { StateTypes, PropTypes, BusinessType } from './@types';
-import { SUCCESS } from './constants';
+import { ERROR, SUCCESS } from './constants';
 
 const AnimView = Animated.View;
 
@@ -219,7 +219,7 @@ class Thepeer extends Component<PropTypes> {
             ...prev,
             confirmingTransaction: false,
             seconds: 5,
-            eventType: e?.response?.data?.event || 'send.error',
+            eventType: e?.response?.data?.event || ERROR,
           }));
         });
     }

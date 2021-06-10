@@ -14,15 +14,18 @@ import {
   USER_INSUFFICIENT_FUNDS,
   SUCCESS,
   ERROR,
+  INVALID_RECEIPT,
 } from '../constants';
 
 const headerTexts: PaneFourTextType = {
+  [INVALID_RECEIPT]: 'Transaction error',
   [INSUFFICIENT_FUNDS]: 'Transaction error',
   [USER_INSUFFICIENT_FUNDS]: 'Transaction error',
   [SUCCESS]: 'Transaction Successful',
   [ERROR]: 'Something went wrong',
 };
 const imagesUri: PaneFourImgsType = {
+  [INVALID_RECEIPT]: require('../assets/images/close-badge.png'),
   [INSUFFICIENT_FUNDS]: require('../assets/images/close-badge.png'),
   [USER_INSUFFICIENT_FUNDS]: require('../assets/images/close-badge.png'),
   [SUCCESS]: require('../assets/images/check-badge.png'),
@@ -38,13 +41,14 @@ const PaneFour = ({
   resetSDK,
 }: PaneFourPropType) => {
   const texts: PaneFourTextType = {
+    [INVALID_RECEIPT]: 'Invalid receipt url',
     [INSUFFICIENT_FUNDS]:
       'Business partner does not have sufficient funds, please try  again later',
     [USER_INSUFFICIENT_FUNDS]:
       'You do not have sufficient funds, please top-up and try again',
     [ERROR]: 'Something went wrong with our server. Please check back later',
     [SUCCESS]: `You have successfully sent ${currencyFormatter(+amount)} to ${
-      receiverBusiness.identifier_type === 'email' ? null : '@'
+      receiverBusiness.identifier_type === 'email' ? '' : '@'
     }${identifier}`,
   };
 
