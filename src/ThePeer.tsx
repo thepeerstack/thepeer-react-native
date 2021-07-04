@@ -59,8 +59,15 @@ class Thepeer extends Component<PropTypes> {
   state: StateTypes = this.defaultState;
 
   checkProps = async () => {
-    const { amount, userReference, publicKey, receiptUrl, onClose, onSuccess } =
-      this.props;
+    const {
+      amount,
+      userReference,
+      publicKey,
+      receiptUrl,
+      onClose,
+      onSuccess,
+      onError,
+    } = this.props;
 
     const validProps =
       amount &&
@@ -70,6 +77,7 @@ class Thepeer extends Component<PropTypes> {
       !!publicKey &&
       !!receiptUrl &&
       onClose !== undefined &&
+      onError !== undefined &&
       onSuccess !== undefined;
 
     if (validProps) {
@@ -102,7 +110,8 @@ class Thepeer extends Component<PropTypes> {
 
   componentDidUpdate() {
     const { openThePeerSdk } = this.props;
-    if (!this.state.senderBusiness.logo && this.props) this.checkProps();
+    const { logo, id } = this.state.senderBusiness;
+    if (!logo && !id && openThePeerSdk) this.checkProps();
     if (!openThePeerSdk) this.resetSDK();
   }
 
@@ -186,8 +195,14 @@ class Thepeer extends Component<PropTypes> {
 
   onProceed = async () => {
     const { remark, resolvedUser } = this.state;
-    const { amount, userReference, receiptUrl, onSuccess, openThePeerSdk } =
-      this.props;
+    const {
+      amount,
+      userReference,
+      receiptUrl,
+      onSuccess,
+      openThePeerSdk,
+      onError,
+    } = this.props;
 
     this.setState((prev) => ({ ...prev, confirmingTransaction: true }));
 
@@ -197,36 +212,73 @@ class Thepeer extends Component<PropTypes> {
       to: resolvedUser.reference,
       from: userReference,
     };
-    const res = await SDKServices.generateReceiptService(payload);
-    if (res.status === 201) {
+    const response = await SDKServices.generateReceiptService(payload);
+
+    const handleError = (e: any) => {
+      const eventType = e ? e?.response?.data?.event : ERROR;
+      this.showLastStep();
+      this.setState((prev) => ({
+        ...prev,
+        confirmingTransaction: false,
+        eventType,
+      }));
+      onError(eventType);
+    };
+    if (response.status === 201 || response.status === 200) {
+      const receipt = response.data.receipt;
       axios({
-        url: `${receiptUrl}?receipt=${res.data.receipt}`,
-        method: 'get',
+        url: receiptUrl,
+        method: 'post',
+        data: {
+          receipt,
+        },
       })
-        .then(({ data }) => {
-          this.showLastStep();
-          this.setState((prev) => ({
-            ...prev,
-            confirmingTransaction: false,
-            eventType: data.event,
-            seconds: 5,
-          }));
-          if (data.event === SUCCESS) {
-            onSuccess(data.event);
-            setTimeout(() => {
-              openThePeerSdk && this.closeSDK();
-            }, 5000);
+        .then(async (response2) => {
+          if (response2.status === 200) {
+            let tryCount = 1;
+
+            const getEvent = async () => {
+              const response3 = await SDKServices.getEventService(receipt);
+              if (
+                response3.status === 200 &&
+                response3.data.event === 'unassigned' &&
+                tryCount < 6
+              ) {
+                setTimeout(() => {
+                  tryCount += 1;
+                  getEvent();
+                }, 10000);
+              } else if (
+                response3.status === 200 &&
+                response3.data.event !== 'unassigned'
+              ) {
+                const event = response3.data.event;
+                this.showLastStep();
+                if (event === SUCCESS) {
+                  onSuccess(event);
+                  setTimeout(() => {
+                    openThePeerSdk && this.closeSDK();
+                  }, 5000);
+                }
+                this.setState((prev) => ({
+                  ...prev,
+                  confirmingTransaction: false,
+                  eventType: event,
+                  seconds: 5,
+                }));
+              } else {
+                handleError(undefined);
+              }
+            };
+            getEvent();
           }
         })
         .catch((e) => {
-          this.showLastStep();
-          this.setState((prev) => ({
-            ...prev,
-            confirmingTransaction: false,
-            seconds: 5,
-            eventType: e?.response?.data?.event || ERROR,
-          }));
+          handleError(e);
         });
+    } else {
+      handleError(undefined);
+      console.error('Error: ', response.data.message);
     }
   };
 
@@ -299,6 +351,7 @@ class Thepeer extends Component<PropTypes> {
               onProceed: this.onProceed,
               amount,
               confirmingTransaction,
+
             }}
           />
         ),
