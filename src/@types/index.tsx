@@ -58,6 +58,7 @@ export type PropTypes = {
   receiptUrl: string;
   amount: string | number;
   onSuccess: (event: string) => void;
+  onError: (event: string) => void;
   onClose: () => void;
   openThePeerSdk: boolean;
 };

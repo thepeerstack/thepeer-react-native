@@ -41,6 +41,7 @@ const WhateverComponent = () => {
           amount: 'AMOUNT_IN_KOBO',
           openThePeerSdk,
           onSuccess: (response) => console.log(response),
+          onError: (response) => console.log(response),
           onClose: () => setOpenThePeerSdk(false),
         }}
       />

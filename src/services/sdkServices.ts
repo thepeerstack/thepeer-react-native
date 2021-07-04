@@ -14,6 +14,7 @@ const SDKServices = {
   resolveUserByRefService: (userReference: string) =>
     getFunc(`resolve/reference?reference=${userReference}`),
   generateReceiptService: (payload: any) => postFunc('receipt', payload),
+  getEventService: (receipt: string) => getFunc(`event/${receipt}`),
 };
 
 export default SDKServices;
