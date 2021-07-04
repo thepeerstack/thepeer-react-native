@@ -14,18 +14,15 @@ import {
   USER_INSUFFICIENT_FUNDS,
   SUCCESS,
   ERROR,
-  INVALID_RECEIPT,
 } from '../constants';
 
 const headerTexts: PaneFourTextType = {
-  [INVALID_RECEIPT]: 'Transaction error',
   [INSUFFICIENT_FUNDS]: 'Transaction error',
   [USER_INSUFFICIENT_FUNDS]: 'Transaction error',
   [SUCCESS]: 'Transaction Successful',
   [ERROR]: 'Something went wrong',
 };
 const imagesUri: PaneFourImgsType = {
-  [INVALID_RECEIPT]: require('../assets/images/close-badge.png'),
   [INSUFFICIENT_FUNDS]: require('../assets/images/close-badge.png'),
   [USER_INSUFFICIENT_FUNDS]: require('../assets/images/close-badge.png'),
   [SUCCESS]: require('../assets/images/check-badge.png'),
@@ -41,7 +38,6 @@ const PaneFour = ({
   handleGoBack,
 }: PaneFourPropType) => {
   const texts: PaneFourTextType = {
-    [INVALID_RECEIPT]: 'Invalid receipt url',
     [INSUFFICIENT_FUNDS]:
       'Business partner does not have sufficient funds, please try  again later',
     [USER_INSUFFICIENT_FUNDS]:
