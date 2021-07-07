@@ -1,6 +1,6 @@
 {
   "name": "thepeer-react-native",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "react-native sdk for thepeer",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
