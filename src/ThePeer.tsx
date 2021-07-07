@@ -73,12 +73,18 @@ class Thepeer extends Component<PropTypes> {
       amount &&
       !isNaN(+amount) &&
       typeof +amount === 'number' &&
+      +amount >= 100 &&
       !!userReference &&
       !!publicKey &&
       !!receiptUrl &&
       onClose !== undefined &&
       onError !== undefined &&
       onSuccess !== undefined;
+
+    const isRequired = (name: string, isValid: boolean) => {
+      if (isValid) return;
+      console.error(`${name} is required`);
+    };
 
     if (validProps) {
       axios.defaults.headers.common['x-api-key'] = publicKey;
@@ -99,8 +105,20 @@ class Thepeer extends Component<PropTypes> {
       }
     } else {
       console.error(
-        "cannot initialize SDK, ensure you're passing the required props"
+        "cannot initialize SDK, ensure you're passing all the required props"
       );
+      isRequired(
+        'amount',
+        !amount && isNaN(+amount) && typeof +amount !== 'number'
+      );
+      +amount < 100 && console.error('amount cannot be less than 100 kobo');
+      isRequired('userReference', !!userReference);
+      isRequired('publicKey', !!receiptUrl);
+      isRequired('receiptUrl', !!receiptUrl);
+      isRequired('onClose callback', onClose !== undefined);
+      isRequired('onError callback', onError !== undefined);
+      isRequired('onSuccess callback', onSuccess !== undefined);
+
     }
   };
 
@@ -215,7 +233,9 @@ class Thepeer extends Component<PropTypes> {
     const response = await SDKServices.generateReceiptService(payload);
 
     const handleError = (e: any) => {
-      const eventType = e ? e?.response?.data?.event : ERROR;
+      const validError =
+        e && e.response && e.response.data && e.response.data.event;
+      const eventType = validError ? e.response.data.event : ERROR;
       this.showLastStep();
       this.setState((prev) => ({
         ...prev,
@@ -351,7 +371,6 @@ class Thepeer extends Component<PropTypes> {
               onProceed: this.onProceed,
               amount,
               confirmingTransaction,
-
             }}
           />
         ),
