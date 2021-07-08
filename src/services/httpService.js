@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://chain.api.thepeer.co/send/';
+axios.defaults.baseURL = 'https://chain.api.thepeer.co';
 axios.defaults.headers.Accept = 'application/json';
 axios.interceptors.response.use(
   (response) => {
