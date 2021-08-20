@@ -1,7 +1,7 @@
 {
   "name": "thepeer-react-native",
-  "version": "0.1.9",
-  "description": "react-native sdk for thepeer",
+  "version": "0.2.0",
+  "description": "A quick and secure way to send money across any business. Add this SDK to your app and give your customers the experience they deserve.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -32,9 +32,14 @@
     "bootstrap": "yarn example && yarn && yarn pods"
   },
   "keywords": [
-    "react-native",
-    "ios",
-    "android"
+    "financial",
+    "data",
+    "API",
+    "direct-charge",
+    "direct-debit",
+    "send",
+    "p2p",
+    "thepeer"
   ],
   "repository": "https://github.com/thepeerstack/react-native-sdk.git",
   "author": "EzeMmuo <olekakamsy@gmail.com> (https://github.com/kamsy)",
@@ -82,7 +87,6 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "yarn lint && yarn typescript"
     }
   },
@@ -153,6 +157,7 @@
     ]
   },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "react-native-webview": "^11.13.0"
   }
 }

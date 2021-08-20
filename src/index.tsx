@@ -1,3 +1,4 @@
-import ThePeer from './ThePeer';
+import ThePeerSend from './features/Send';
+import ThePeerDirectCharge from './features/DirectDebit';
 
-export { ThePeer };
+export { ThePeerSend, ThePeerDirectCharge };
