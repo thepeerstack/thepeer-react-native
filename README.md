@@ -2,6 +2,9 @@
 
 Thepeer SDK is a quick and secure way to send money across any business. The SDK handles connecting other businesses to your app.
 
+<img src='https://user-images.githubusercontent.com/23347440/130235552-28306fee-38ad-4879-8a75-650ebacdff07.png' alt='screenshot of Send SDK' width='250px' />
+<img src='https://user-images.githubusercontent.com/23347440/130235545-49ed32ee-31fe-4c63-8967-117b96bf52f3.png' alt='screenshot of Direct Charge SDK' width='250px' />
+
 ## Installation
 
 ```sh
