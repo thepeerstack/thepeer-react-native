@@ -171,42 +171,7 @@ The transaction JSON returned from the success events for.
           "name": "Kamsi Oleka",
           "identifier": "ezemmuo",
           "identifier_type": "username",
-          "email": "kamsy@thepeer.co",  "id": "transaction-identifier",
-        "remark": "medicine",
-        "amount": 50000,
-        "type": "peer",
-        "status": "success",
-        "user": {
-            "name": "Tim Cook",
-            "identifier": "tim",
-            "identifier_type": "username",
-            "email": "tim@apple.com",
-            "reference": "one-more-thing"
-        },
-        "mode": "debit",
-        "reference": "transaction-reference",
-        "peer": {
-            "user": {
-                "name": "John Ternus",
-                "identifier": "john",
-                "identifier_type": "username",
-                "email": "john@apple.com",
-                "reference": "seeing-is-believing"
-            },
-            "business": {
-                "id": "knowledge-and-power",
-                "name": "Apple",
-                "email": "thepeer@apple.com",
-                "logo": null,
-                "identifier_type": "username"
-            }
-        },
-        "meta": {
-            "city": "Cupertino",
-            "state": "california"
-        },
-        "created_at": "2021-04-12T19:52:22.000000Z",
-        "updated_at": "2021-04-12T19:52:22.000000Z"
+          "email": "eze@mmuo.co",
           "reference": "seeing-is-believing"
       },
       "business": {
