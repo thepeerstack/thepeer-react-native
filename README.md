@@ -191,6 +191,10 @@ The transaction JSON returned from the success events for.
 }
 ```
 
+## Issues
+
+- `Tried to register two views with the same name RNCWebview` - The minimum version of the RN Webview package used for this project is `11.13.0`. Update your version to this version or later to fix this issue.
+
 ## Support
 
 If you're having trouble with Thepeer React Native SDK or your integration, please reach out to us at <support@thepeer.co> or come chat with us on Slack. We're more than happy to help you out.
