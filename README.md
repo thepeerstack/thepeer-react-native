@@ -148,50 +148,46 @@ Event names correspond to the type of event that occurred. Possible options are 
 
 #### <a name="transactionObject"></a> `transaction: JSON`
 
-The transaction JSON returned from the success events.
+The transaction JSON returned from the success events for.
 
 ```ts
 {
-  "id": string,
-  "remark": string,
-  "amount": number,
-  "type": string,
-  "direct_debit": boolean,
-  "status": string,
+  "id": "transaction-identifier",
+  "remark": "medicine",
+  "amount": 50000,
+  "type": "peer",
+  "status": "success",
   "user": {
-    "name": "Trojan Okoh",
-    "identifier":string,
-    "identifier_type": string,
-    "email":string,
-    "reference": string,
-    "created_at":string,
-    "updated_at": string,
+      "name": "Tim Cook",
+      "identifier": "tim",
+      "identifier_type": "username",
+      "email": "tim@apple.com",
+      "reference": "one-more-thing"
   },
-  "mode": string,
-  "reference":  string,
+  "mode": "debit",
+  "reference": "transaction-reference",
   "peer": {
-    "business": {
-      "id":  string,
-      "name":  string,
-      "logo": string,
-      "logo_colour": string,
-      "identifier_type": string,
-    },
-    "user": {
-      "name": string,
-      "identifier": string,
-      "identifier_type": string,
-      "email": string,
-      "reference": string,
-      "created_at": string,
-      "updated_at": string,
-    }
+      "user": {
+          "name": "Kamsi Oleka",
+          "identifier": "ezemmuo",
+          "identifier_type": "username",
+          "email": "eze@mmuo.co",
+          "reference": "seeing-is-believing"
+      },
+      "business": {
+          "id": "knowledge-and-power",
+          "name": "Apple",
+          "email": "thepeer@apple.com",
+          "logo": null,
+          "identifier_type": "username"
+      }
   },
   "meta": {
-    ...
+      "city": "Cupertino",
+      "state": "california"
   },
-  "created_at": string,
-  "updated_at":  string,
+  "created_at": "2021-04-12T19:52:22.000000Z",
+  "updated_at": "2021-04-12T19:52:22.000000Z"
 }
 ```
 
