@@ -25,11 +25,14 @@ const DirectDebit = (props: DirectDebitProps) => {
   } = props;
   useEffect(() => {
     const checkProps = () => {
-      let validProps =
+      const validAmount =
         amount &&
         !isNaN(+amount) &&
         typeof +amount === 'number' &&
-        +amount >= 100 &&
+        +amount >= 10000;
+
+      let validProps =
+        validAmount &&
         !!userReference &&
         !!publicKey &&
         onClose !== undefined &&
@@ -59,7 +62,7 @@ const DirectDebit = (props: DirectDebitProps) => {
           'amount',
           !amount && isNaN(+amount) && typeof +amount !== 'number'
         );
-        +amount < 100 && console.error('amount cannot be less than 100 kobo');
+        !validAmount && console.error('amount cannot be less than 100 NGN');
         isRequired('userReference', !!userReference);
         isRequired('publicKey', !!publicKey);
         isRequired('onClose callback', onClose !== undefined);
@@ -87,7 +90,6 @@ const DirectDebit = (props: DirectDebitProps) => {
   ]);
 
   const handleMessage = ({ nativeEvent: { data } }: any) => {
-    console.log('handleMessage -> data', data);
     const response = JSON.parse(data);
     switch (response.event) {
       case DIRECT_DEBIT_CLOSE:
