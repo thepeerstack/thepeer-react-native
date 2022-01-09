@@ -26,7 +26,7 @@ const Send = (props: SendProps) => {
         amount &&
         !isNaN(+amount) &&
         typeof +amount === 'number' &&
-        +amount >= 100;
+        +amount >= 10000;
 
       let validProps =
         validAmount &&
@@ -57,8 +57,7 @@ const Send = (props: SendProps) => {
         console.error(
           "cannot initialize SDK, ensure you're passing all the required props"
         );
-        !validAmount &&
-          console.error('Enter a valid amount, not less than 100 kobo');
+        !validAmount && console.error('amount cannot be less than 100 naira');
         isRequired('userReference', !!userReference);
         isRequired('publicKey', !!publicKey);
         isRequired('receiptUrl', !!receiptUrl);
