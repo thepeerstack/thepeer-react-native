@@ -62,7 +62,7 @@ const DirectDebit = (props: DirectDebitProps) => {
           'amount',
           !amount && isNaN(+amount) && typeof +amount !== 'number'
         );
-        !validAmount && console.error('amount cannot be less than 100 naira');
+        !validAmount && console.error('amount cannot be less than 100 NGN');
         isRequired('userReference', !!userReference);
         isRequired('publicKey', !!publicKey);
         isRequired('onClose callback', onClose !== undefined);

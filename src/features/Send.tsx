@@ -57,7 +57,7 @@ const Send = (props: SendProps) => {
         console.error(
           "cannot initialize SDK, ensure you're passing all the required props"
         );
-        !validAmount && console.error('amount cannot be less than 100 naira');
+        !validAmount && console.error('amount cannot be less than 100 NGN');
         isRequired('userReference', !!userReference);
         isRequired('publicKey', !!publicKey);
         isRequired('receiptUrl', !!receiptUrl);
