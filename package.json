@@ -1,6 +1,6 @@
 {
   "name": "thepeer-react-native",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A quick and secure way to send money across any business. Add this SDK to your app and give your customers the experience they deserve.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -39,15 +39,16 @@
     "direct-debit",
     "send",
     "p2p",
-    "thepeer"
+    "thepeer",
+    "thepeer-react-native"
   ],
-  "repository": "https://github.com/thepeerstack/react-native-sdk.git",
+  "repository": "https://github.com/thepeerstack/thepeer-react-native.git",
   "author": "EzeMmuo <olekakamsy@gmail.com> (https://github.com/kamsy)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thepeerstack/react-native-sdk.git/issues"
+    "url": "https://github.com/thepeerstack/thepeer-react-native.git/issues"
   },
-  "homepage": "https://github.com/thepeerstack/react-native-sdk.git#readme",
+  "homepage": "https://github.com/thepeerstack/thepeer-react-native.git#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

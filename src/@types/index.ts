@@ -1,33 +1,37 @@
-export type FeaturesWrapperProps = {
+export interface FeaturesWrapperProps {
   visible: boolean;
   onRequestClose: () => void;
   children: any;
-};
+}
 
-export type MetaProps = {
+export interface MetaProps {
   [key: string]: any;
-};
+}
 
-export type DirectDebitProps = {
+type EventResponse = {
+  type: string;
+  data: undefined | Object;
+};
+export interface GeneralProps {
   publicKey: string;
-  userReference: string;
-  receiptUrl: string;
   amount: string | number;
-  onError: (event: string) => void;
-  onSuccess: (event: string) => void;
-  onClose: () => void;
+  meta?: MetaProps;
+  currency?: string;
+  onSuccess: (response: EventResponse) => void;
+  onError: (response: EventResponse) => void;
+  onClose: (response?: EventResponse) => void;
+}
+
+export interface DirectDebitProps {
   openDirectChargeSDK: boolean;
-  meta?: MetaProps;
-};
-
-export type SendProps = {
-  publicKey: string;
   userReference: string;
-  receiptUrl: string;
-  amount: string | number;
-  onSuccess: (event: string) => void;
-  onError: (event: string) => void;
-  onClose: () => void;
+}
+
+export interface SendProps {
   openSendSDK: boolean;
-  meta?: MetaProps;
-};
+  userReference: string;
+}
+
+export interface CheckoutProps {
+  openCheckoutSDK: boolean;
+}
