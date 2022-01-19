@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { createUrl, isRequired } from '../utils';
-import type { DirectDebitProps, GeneralProps } from '../@types';
+import type { GeneralProps, CheckoutProps } from '../@types';
 import FeaturesWrapper from '../components/FeaturesWrapper';
 import { WebView } from 'react-native-webview';
 import {
-  DIRECT_CHARGE_INSUFFICIENT_FUNDS,
-  DIRECT_CHARGE_USER_INSUFFICIENT_FUNDS,
-  DIRECT_CHARGE_SUCCESS,
-  DIRECT_CHARGE_BUSINESS_DECLINE,
-  DIRECT_CHARGE_USER_DECLINE,
-  DIRECT_CHARGE_CLOSE,
+  CHECKOUT_INSUFFICIENT_FUNDS,
+  CHECKOUT_USER_INSUFFICIENT_FUNDS,
+  CHECKOUT_SUCCESS,
+  CHECKOUT_BUSINESS_DECLINE,
+  CHECKOUT_USER_DECLINE,
+  CHECKOUT_CLOSE,
 } from '../constants';
 import Loader from '../components/Loader';
 import ErrorFallback from '../components/Error';
 
-const DirectDebit = (props: GeneralProps & DirectDebitProps) => {
+const Checkout = (props: GeneralProps & CheckoutProps) => {
   const [sourceUrl, setSourceUrl] = useState<string>('');
   const {
     amount,
     meta,
-    userReference,
     publicKey,
     onClose,
     onSuccess,
     onError,
-    openDirectChargeSDK,
+    openCheckoutSDK,
     currency,
   } = props;
   useEffect(() => {
@@ -37,7 +36,7 @@ const DirectDebit = (props: GeneralProps & DirectDebitProps) => {
 
       let validProps =
         validAmount &&
-        !!userReference &&
+        !!openCheckoutSDK &&
         !!publicKey &&
         onClose !== undefined &&
         onSuccess !== undefined &&
@@ -52,11 +51,10 @@ const DirectDebit = (props: GeneralProps & DirectDebitProps) => {
       if (validProps) {
         const configs = {
           amount,
-          userReference,
           publicKey,
-          sdkType: 'directCharge',
-          meta,
+          sdkType: 'checkout',
           currency,
+          meta,
         };
         setSourceUrl(createUrl(configs));
       } else {
@@ -68,7 +66,6 @@ const DirectDebit = (props: GeneralProps & DirectDebitProps) => {
           !amount && isNaN(+amount) && typeof +amount !== 'number'
         );
         !validAmount && console.error('amount cannot be less than 100 NGN');
-        isRequired('userReference', !!userReference);
         isRequired('publicKey', !!publicKey);
         isRequired('onClose callback', onClose !== undefined);
         isRequired('onError callback', onError !== undefined);
@@ -80,41 +77,40 @@ const DirectDebit = (props: GeneralProps & DirectDebitProps) => {
       }
     };
 
-    if (openDirectChargeSDK) {
+    if (openCheckoutSDK) {
       checkProps();
     }
   }, [
     amount,
     meta,
-    userReference,
     publicKey,
     currency,
     onClose,
     onSuccess,
     onError,
-    openDirectChargeSDK,
+    openCheckoutSDK,
   ]);
 
   const handleMessage = ({ nativeEvent: { data } }: any) => {
     const response = JSON.parse(data);
     switch (response.event) {
-      case DIRECT_CHARGE_CLOSE:
+      case CHECKOUT_CLOSE:
         onClose(response);
         break;
-      case DIRECT_CHARGE_SUCCESS:
+      case CHECKOUT_SUCCESS:
         onSuccess(response);
         break;
-      case DIRECT_CHARGE_INSUFFICIENT_FUNDS:
-      case DIRECT_CHARGE_USER_INSUFFICIENT_FUNDS:
-      case DIRECT_CHARGE_BUSINESS_DECLINE:
-      case DIRECT_CHARGE_USER_DECLINE:
+      case CHECKOUT_INSUFFICIENT_FUNDS:
+      case CHECKOUT_USER_INSUFFICIENT_FUNDS:
+      case CHECKOUT_BUSINESS_DECLINE:
+      case CHECKOUT_USER_DECLINE:
         onError(response);
         break;
     }
   };
 
   return (
-    <FeaturesWrapper visible={openDirectChargeSDK} onRequestClose={onClose}>
+    <FeaturesWrapper visible={openCheckoutSDK} onRequestClose={onClose}>
       <WebView
         source={{ uri: sourceUrl }}
         onMessage={handleMessage}
@@ -126,4 +122,4 @@ const DirectDebit = (props: GeneralProps & DirectDebitProps) => {
   );
 };
 
-export default DirectDebit;
+export default Checkout;
