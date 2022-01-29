@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { createUrl, isRequired } from '../utils';
+import { createUrl, isRequired, validateAmount } from '../utils';
 import type { GeneralProps, SendProps } from '../@types';
 import FeaturesWrapper from '../components/FeaturesWrapper';
 import { WebView } from 'react-native-webview';
@@ -25,16 +25,12 @@ const Send = (props: GeneralProps & SendProps) => {
     openSendSDK,
     currency,
   } = props;
+
+  const isValidAmount = validateAmount({ amount, currency });
   useEffect(() => {
     const checkProps = () => {
-      const validAmount =
-        amount &&
-        !isNaN(+amount) &&
-        typeof +amount === 'number' &&
-        +amount >= 10000;
-
       let validProps =
-        validAmount &&
+        isValidAmount &&
         !!userReference &&
         !!publicKey &&
         onClose !== undefined &&
@@ -61,7 +57,7 @@ const Send = (props: GeneralProps & SendProps) => {
         console.error(
           "cannot initialize SDK, ensure you're passing all the required props"
         );
-        !validAmount && console.error('amount cannot be less than 100 NGN');
+
         isRequired('userReference', !!userReference);
         isRequired('publicKey', !!publicKey);
         isRequired('onClose callback', onClose !== undefined);
