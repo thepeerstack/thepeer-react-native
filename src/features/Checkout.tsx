@@ -79,7 +79,7 @@ const Checkout = (props: GeneralProps & CheckoutProps) => {
     onClose,
     onSuccess,
     onError,
-    openCheckoutSDK,
+    openCheckoutSDK,isValidAmount
   ]);
 
   const handleMessage = ({ nativeEvent: { data } }: any) => {

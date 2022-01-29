@@ -82,6 +82,7 @@ const Send = (props: GeneralProps & SendProps) => {
     onSuccess,
     onError,
     openSendSDK,
+    isValidAmount,
   ]);
 
   const handleMessage = ({ nativeEvent: { data } }: any) => {

@@ -84,6 +84,7 @@ const DirectDebit = (props: GeneralProps & DirectDebitProps) => {
     onSuccess,
     onError,
     openDirectChargeSDK,
+    isValidAmount,
   ]);
 
   const handleMessage = ({ nativeEvent: { data } }: any) => {
