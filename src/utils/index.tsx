@@ -14,8 +14,8 @@ const validateAmount = ({
   if (!isNaN(+amount) && typeof +amount === 'number') {
     if (currency === 'NGN' && +amount < 10000) {
       throw new Error('amount cannot be less than ₦100');
-    } else if (currency === 'USD' && +amount < 1000) {
-      throw new Error('amount cannot be less than $10');
+    } else if (currency === 'USD' && +amount < 500) {
+      throw new Error('amount cannot be less than $5');
     }
   } else {
     throw new Error('amount must be a number');

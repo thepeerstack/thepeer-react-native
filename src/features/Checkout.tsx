@@ -25,6 +25,7 @@ const Checkout = (props: GeneralProps & CheckoutProps) => {
     onError,
     openCheckoutSDK,
     currency,
+    email,
   } = props;
 
   const isValidAmount = validateAmount({ amount, currency });
@@ -33,6 +34,7 @@ const Checkout = (props: GeneralProps & CheckoutProps) => {
       let validProps =
         isValidAmount &&
         !!openCheckoutSDK &&
+        !!email &&
         !!publicKey &&
         onClose !== undefined &&
         onSuccess !== undefined &&
@@ -51,6 +53,7 @@ const Checkout = (props: GeneralProps & CheckoutProps) => {
           sdkType: 'checkout',
           currency,
           meta,
+          email,
         };
         setSourceUrl(createUrl(configs));
       } else {
@@ -58,6 +61,7 @@ const Checkout = (props: GeneralProps & CheckoutProps) => {
           "cannot initialize SDK, ensure you're passing all the required props"
         );
         isRequired('publicKey', !!publicKey);
+        isRequired('email', !!email);
         isRequired('onClose callback', onClose !== undefined);
         isRequired('onError callback', onError !== undefined);
         isRequired('onSuccess callback', onSuccess !== undefined);
@@ -76,6 +80,7 @@ const Checkout = (props: GeneralProps & CheckoutProps) => {
     meta,
     publicKey,
     currency,
+    email,
     onClose,
     onSuccess,
     onError,
