@@ -34,4 +34,5 @@ export interface SendProps {
 
 export interface CheckoutProps {
   openCheckoutSDK: boolean;
+  email: string;
 }
