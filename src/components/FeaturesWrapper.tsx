@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Modal, StyleSheet, Platform } from 'react-native';
-import type { FeaturesWrapperProps } from '../@types';
+import type { FeaturesWrapperProps } from 'types';
 
 const FeaturesWrapper = ({
   visible,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     overflow: 'hidden',
     height: '100%',
   },

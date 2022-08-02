@@ -1,19 +1,20 @@
 import React from 'react';
-import type { GeneralProps, SendProps } from 'types';
 import { createUrl } from 'utils';
+import type { DirectDebitProps, GeneralProps } from 'types';
 import FeaturesWrapper from 'components/FeaturesWrapper';
-import { SEND_CLOSE, SEND_SUCCESS } from 'variables';
+import { DIRECT_CHARGE_SUCCESS, DIRECT_CHARGE_CLOSE } from 'variables';
 import WebViewWrapper from 'components/WebViewWrapper';
 
-const Send = (props: GeneralProps & SendProps) => {
-  const { onClose, onSuccess, onError, openSendSDK } = props;
+const DirectCharge = (props: GeneralProps & DirectDebitProps) => {
+  const { onClose, onSuccess, onError, openDirectChargeSDK } = props;
+
   const handleMessage = ({ nativeEvent: { data } }: any) => {
     const response = JSON.parse(data);
     switch (response.event) {
-      case SEND_CLOSE:
-        onClose();
+      case DIRECT_CHARGE_CLOSE:
+        onClose(response);
         break;
-      case SEND_SUCCESS:
+      case DIRECT_CHARGE_SUCCESS:
         onSuccess(response);
         break;
       default:
@@ -22,10 +23,10 @@ const Send = (props: GeneralProps & SendProps) => {
     }
   };
 
-  const sourceUrl = createUrl({ ...props, sdkType: 'send' });
+  const sourceUrl = createUrl({ ...props, sdkType: 'directCharge' });
 
   return (
-    <FeaturesWrapper visible={openSendSDK} onRequestClose={onClose}>
+    <FeaturesWrapper visible={openDirectChargeSDK} onRequestClose={onClose}>
       <WebViewWrapper
         {...{
           source: { uri: sourceUrl },
@@ -37,4 +38,4 @@ const Send = (props: GeneralProps & SendProps) => {
   );
 };
 
-export default Send;
+export default DirectCharge;

@@ -8,7 +8,7 @@ export interface MetaProps {
   [key: string]: any;
 }
 
-type EventResponse = {
+export type EventResponse = {
   type: string;
   data: undefined | Object;
 };

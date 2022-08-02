@@ -11,7 +11,7 @@ Thepeer is a quick and secure way to send money across any business. The SDK han
 npm install thepeer-react-native
 ```
 
-Also, install `react-native-webview` because it's a dependency for this package. Here's a [link](https://github.com/react-native-webview/react-native-webview) to their docs.
+You need to install `react-native-webview` if you don't have it installed. It's a dependency for this package. Here's a [link](https://github.com/react-native-webview/react-native-webview) to their docs.
 
 ## Usage
 
@@ -19,26 +19,34 @@ Also, install `react-native-webview` because it's a dependency for this package.
 import React from 'react';
 import { View, Pressable, Text } from 'react-native';
 import {
-  ThePeerSend,
-  ThePeerDirectCharge,
-  ThePeerCheckout,
+  ThepeerSend,
+  ThepeerDirectCharge,
+  ThepeerCheckout,
 } from 'thepeer-react-native';
 // ...
 
 const sendMoneyApp = () => {
   const [openSendSDK, setOpenSendSDK] = useState(false);
+  const closeSendSDK = () => setOpenSendSDK(false);
+
   return (
     <View>
-      <ThePeerSend
+      <ThepeerSend
         {...{
           publicKey: 'PUBLIC_KEY',
           userReference: 'USER_REFERENCE',
           amount: 'AMOUNT_IN_KOBO',
           currency: 'NGN',
           openSendSDK,
-          onSuccess: (response) => {},
-          onError: (response) => {},
-          onClose: () => setOpenSendSDK(false),
+          onSuccess: (response) => {
+            console.log('response', response);
+            closeSendSDK();
+          },
+          onError: (response) => {
+            console.log('response', response);
+            closeSendSDK();
+          },
+          onClose: closeSendSDK,
         }}
       />
       <Pressable onPress={() => setOpenSendSDK(true)}>
@@ -50,18 +58,26 @@ const sendMoneyApp = () => {
 
 const directChargeApp = () => {
   const [openDirectChargeSDK, setOpenDirectChargeSDK] = useState(false);
+  const closeDirectChargeSDK = () => setOpenDirectChargeSDK(false);
+
   return (
     <View>
-      <ThePeerDirectCharge
+      <ThepeerDirectCharge
         {...{
           publicKey: 'PUBLIC_KEY',
           userReference: 'USER_REFERENCE',
           amount: 'AMOUNT_IN_KOBO',
           currency: 'NGN',
           openDirectChargeSDK,
-          onSuccess: (response) => {},
-          onError: (response) => {},
-          onClose: () => setOpenDirectChargeSDK(false),
+          onSuccess: (response) => {
+            console.log('response', response);
+            closeDirectChargeSDK();
+          },
+          onError: (response) => {
+            console.log('response', response);
+            closeDirectChargeSDK();
+          },
+          onClose: closeDirectChargeSDK,
         }}
       />
       <Pressable onPress={() => setOpenDirectChargeSDK(true)}>
@@ -73,17 +89,25 @@ const directChargeApp = () => {
 
 const checkoutApp = () => {
   const [openCheckoutSDK, setOpenCheckoutSDK] = useState(false);
+  const closeCheckoutSDK = () => setOpenCheckoutSDK(false);
+
   return (
     <View>
-      <ThePeerDirectCharge
+      <ThepeerCheckout
         {...{
           publicKey: 'PUBLIC_KEY',
           amount: 'AMOUNT_IN_KOBO',
           currency: 'NGN',
           openCheckoutSDK,
-          onSuccess: (response) => {},
-          onError: (response) => {},
-          onClose: () => setOpenCheckoutSDK(false),
+          onSuccess: (response) => {
+            console.log('response', response);
+            closeCheckoutSDK();
+          },
+          onError: (response) => {
+            console.log('response', response);
+            closeCheckoutSDK();
+          },
+          onClose: closeCheckoutSDK,
         }}
       />
       <Pressable onPress={() => setOpenCheckoutSDK(true)}>
@@ -135,14 +159,14 @@ This is called when a transaction is successfully. It returns a response with ev
 
 See the [event details](#thepeerEvent) below.
 
-### <a name="onError"></a> `onError `
+### <a name="onError"></a> `onError`
 
 **(response) => void: Required**
 This is called when a transaction fails. It returns a response with event type
 
 See the [event details](#thepeerEvent) below.
 
-### <a name="onClose"></a> `onClose `
+### <a name="onClose"></a> `onClose`
 
 **(response) => void: Required**
 This is called when a user clicks on the close button.
@@ -173,6 +197,12 @@ This is a prop to display/hide the sdk
 
 **boolean: Required**
 This is a prop to display/hide the sdk
+
+
+### <a name="email"></a> `email`
+
+**string: Required**
+The user's email address.
 
 ## Issues
 
