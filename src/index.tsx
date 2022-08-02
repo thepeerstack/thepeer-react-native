@@ -1,5 +1,5 @@
-import ThePeerSend from './features/Send';
-import ThePeerDirectCharge from './features/DirectDebit';
-import ThePeerCheckout from './features/Checkout';
+import ThepeerSend from './features/Send';
+import ThepeerDirectCharge from './features/DirectCharge';
+import ThepeerCheckout from './features/Checkout';
 
-export { ThePeerSend, ThePeerDirectCharge, ThePeerCheckout };
+export { ThepeerSend, ThepeerDirectCharge, ThepeerCheckout };

@@ -1,93 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { createUrl, isRequired, validateAmount } from '../utils';
-import type { GeneralProps, CheckoutProps } from '../@types';
-import FeaturesWrapper from '../components/FeaturesWrapper';
-import { WebView } from 'react-native-webview';
-import {
-  CHECKOUT_INSUFFICIENT_FUNDS,
-  CHECKOUT_USER_INSUFFICIENT_FUNDS,
-  CHECKOUT_SUCCESS,
-  CHECKOUT_BUSINESS_DECLINE,
-  CHECKOUT_USER_DECLINE,
-  CHECKOUT_CLOSE,
-} from '../constants';
-import Loader from '../components/Loader';
-import ErrorFallback from '../components/Error';
+import React from 'react';
+import { createUrl } from 'utils';
+import type { GeneralProps, CheckoutProps } from 'types';
+import FeaturesWrapper from 'components/FeaturesWrapper';
+import { CHECKOUT_SUCCESS, CHECKOUT_CLOSE } from 'variables';
+import WebViewWrapper from 'components/WebViewWrapper';
 
 const Checkout = (props: GeneralProps & CheckoutProps) => {
-  const [sourceUrl, setSourceUrl] = useState<string>('');
-  const {
-    amount,
-    meta,
-    publicKey,
-    onClose,
-    onSuccess,
-    onError,
-    openCheckoutSDK,
-    currency,
-    email,
-  } = props;
-
-  const isValidAmount = validateAmount({ amount, currency });
-  useEffect(() => {
-    const checkProps = () => {
-      let validProps =
-        isValidAmount &&
-        !!openCheckoutSDK &&
-        !!email &&
-        !!publicKey &&
-        onClose !== undefined &&
-        onSuccess !== undefined &&
-        onError !== undefined;
-
-      if (meta) {
-        if (typeof meta === 'object' && !(meta instanceof Array))
-          validProps = true;
-        else validProps = false;
-      }
-
-      if (validProps) {
-        const configs = {
-          amount,
-          publicKey,
-          sdkType: 'checkout',
-          currency,
-          meta,
-          email,
-        };
-        setSourceUrl(createUrl(configs));
-      } else {
-        console.error(
-          "cannot initialize SDK, ensure you're passing all the required props"
-        );
-        isRequired('publicKey', !!publicKey);
-        isRequired('email', !!email);
-        isRequired('onClose callback', onClose !== undefined);
-        isRequired('onError callback', onError !== undefined);
-        isRequired('onSuccess callback', onSuccess !== undefined);
-        meta &&
-          typeof meta === 'object' &&
-          meta instanceof Array &&
-          console.error('meta must be an object');
-      }
-    };
-
-    if (openCheckoutSDK) {
-      checkProps();
-    }
-  }, [
-    amount,
-    meta,
-    publicKey,
-    currency,
-    email,
-    onClose,
-    onSuccess,
-    onError,
-    openCheckoutSDK,
-    isValidAmount,
-  ]);
-
+  const { onClose, onSuccess, onError, openCheckoutSDK } = props;
   const handleMessage = ({ nativeEvent: { data } }: any) => {
     const response = JSON.parse(data);
     switch (response.event) {
@@ -97,23 +16,21 @@ const Checkout = (props: GeneralProps & CheckoutProps) => {
       case CHECKOUT_SUCCESS:
         onSuccess(response);
         break;
-      case CHECKOUT_INSUFFICIENT_FUNDS:
-      case CHECKOUT_USER_INSUFFICIENT_FUNDS:
-      case CHECKOUT_BUSINESS_DECLINE:
-      case CHECKOUT_USER_DECLINE:
+      default:
         onError(response);
         break;
     }
   };
 
+  const sourceUrl = createUrl({ ...props, sdkType: 'checkout' });
   return (
     <FeaturesWrapper visible={openCheckoutSDK} onRequestClose={onClose}>
-      <WebView
-        source={{ uri: sourceUrl }}
-        onMessage={handleMessage}
-        startInLoadingState={true}
-        renderLoading={() => <Loader />}
-        renderError={(error) => <ErrorFallback {...{ onClose, error }} />}
+      <WebViewWrapper
+        {...{
+          source: { uri: sourceUrl },
+          onMessage: handleMessage,
+          onClose,
+        }}
       />
     </FeaturesWrapper>
   );

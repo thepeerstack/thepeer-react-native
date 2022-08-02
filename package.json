@@ -1,6 +1,6 @@
 {
   "name": "thepeer-react-native",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A quick and secure way to send money across any business. Add this SDK to your app and give your customers the experience they deserve.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -25,6 +25,7 @@
     "test": "jest",
     "typescript": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\" --fix",
+    "repack": "bob build && yarn pack",
     "prepare": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
@@ -43,7 +44,7 @@
     "thepeer-react-native"
   ],
   "repository": "https://github.com/thepeerstack/thepeer-react-native.git",
-  "author": "EzeMmuo <olekakamsy@gmail.com> (https://github.com/kamsy)",
+  "author": "ezemmuo <olekakamsy@gmail.com> (https://github.com/kamsy)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/thepeerstack/thepeer-react-native.git/issues"
@@ -77,7 +78,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-webview": "*"
   },
   "jest": {
     "preset": "react-native",
@@ -158,7 +160,6 @@
     ]
   },
   "dependencies": {
-    "axios": "^0.21.1",
     "react-native-webview": "^11.13.0"
   }
 }
