@@ -2,7 +2,7 @@ import React from 'react';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import Loader from './Loader';
 import ErrorFallback from './Error';
-import type { EventResponse } from 'types';
+import type { EventResponse } from '../types';
 
 type WebViewProps = {
   onClose: (response?: EventResponse) => void;

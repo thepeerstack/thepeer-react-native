@@ -2,8 +2,11 @@
 
 All notable changes to this project will be documented in this file. Fixes, breaking changes and API changes
 
-### [0.2.4] - 01-08-2022
+### [0.2.5] - 03-08-2022
+Fixes
+- Fixed broken path to modules issue.
 
+### [0.2.4] - 01-08-2022
 Fixes
 - react-native-webview now a peerDependency to resolve conflicting with existing versions in your projects. (Apologies for not doing this earlier🥲)
 

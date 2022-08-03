@@ -1,9 +1,9 @@
 import React from 'react';
-import { createUrl } from 'utils';
-import type { DirectDebitProps, GeneralProps } from 'types';
-import FeaturesWrapper from 'components/FeaturesWrapper';
-import { DIRECT_CHARGE_SUCCESS, DIRECT_CHARGE_CLOSE } from 'variables';
-import WebViewWrapper from 'components/WebViewWrapper';
+import { createUrl } from '../utils';
+import type { DirectDebitProps, GeneralProps } from '../types';
+import FeaturesWrapper from '../components/FeaturesWrapper';
+import { DIRECT_CHARGE_SUCCESS, DIRECT_CHARGE_CLOSE } from '../variables';
+import WebViewWrapper from '../components/WebViewWrapper';
 
 const DirectCharge = (props: GeneralProps & DirectDebitProps) => {
   const { onClose, onSuccess, onError, openDirectChargeSDK } = props;
