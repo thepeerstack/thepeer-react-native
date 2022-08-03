@@ -1,9 +1,9 @@
 import React from 'react';
-import { createUrl } from 'utils';
-import type { GeneralProps, CheckoutProps } from 'types';
-import FeaturesWrapper from 'components/FeaturesWrapper';
-import { CHECKOUT_SUCCESS, CHECKOUT_CLOSE } from 'variables';
-import WebViewWrapper from 'components/WebViewWrapper';
+import { createUrl } from '../utils';
+import type { GeneralProps, CheckoutProps } from '../types';
+import FeaturesWrapper from '../components/FeaturesWrapper';
+import { CHECKOUT_SUCCESS, CHECKOUT_CLOSE } from '../variables';
+import WebViewWrapper from '../components/WebViewWrapper';
 
 const Checkout = (props: GeneralProps & CheckoutProps) => {
   const { onClose, onSuccess, onError, openCheckoutSDK } = props;

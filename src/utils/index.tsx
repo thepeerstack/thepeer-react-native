@@ -11,10 +11,12 @@ const validateAmount = ({
   currency: string;
 }) => {
   if (!amount) return isRequired('amount', false);
-  if (!isNaN(+amount) && typeof +amount === 'number') {
-    if (currency === 'NGN' && +amount < 10000) {
+
+  const amt = +amount;
+  if (!isNaN(amt)) {
+    if (currency === 'NGN' && amt < 10000) {
       throw new Error('amount cannot be less than ₦100');
-    } else if (currency === 'USD' && +amount < 500) {
+    } else if (currency === 'USD' && amt < 500) {
       throw new Error('amount cannot be less than $5');
     }
   } else {
