@@ -1,9 +1,9 @@
 import React from 'react';
-import type { GeneralProps, SendProps } from 'types';
-import { createUrl } from 'utils';
-import FeaturesWrapper from 'components/FeaturesWrapper';
-import { SEND_CLOSE, SEND_SUCCESS } from 'variables';
-import WebViewWrapper from 'components/WebViewWrapper';
+import type { GeneralProps, SendProps } from '../types';
+import { createUrl } from '../utils';
+import FeaturesWrapper from '../components/FeaturesWrapper';
+import { SEND_CLOSE, SEND_SUCCESS } from '../variables';
+import WebViewWrapper from '../components/WebViewWrapper';
 
 const Send = (props: GeneralProps & SendProps) => {
   const { onClose, onSuccess, onError, openSendSDK } = props;
