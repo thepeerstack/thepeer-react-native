@@ -1,6 +1,6 @@
 {
   "name": "thepeer-react-native",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A quick and secure way to send money across any business. Add this SDK to your app and give your customers the experience they deserve.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

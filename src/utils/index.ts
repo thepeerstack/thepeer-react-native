@@ -44,11 +44,10 @@ const validateConfig = (config: any) => {
   isRequired('onSuccess callback', onSuccess !== undefined);
   validateAmount({ amount, currency: currency || 'NGN' });
 
-  if (sdkType === 'checkout') {
-    isRequired('email', !!email);
-  } else {
-    isRequired('userReference', !!userReference);
-  }
+  sdkType === 'checkout'
+    ? isRequired('email', !!email)
+    : isRequired('userReference', !!userReference);
+
   if (meta && !(typeof meta === 'object' && !(meta instanceof Array))) {
     throw new Error('meta must be an object');
   }
@@ -58,7 +57,8 @@ const validateConfig = (config: any) => {
 
 const createUrl = (config: any) => {
   const configValid = validateConfig(config);
-  let base = 'https://chain.thepeer.co?';
+  let base = 'https://groot.thepeer.co?';
+  // let base = 'https://chain.thepeer.co?';
   if (!configValid) return base;
 
   Object.keys(config).map((k) => {
