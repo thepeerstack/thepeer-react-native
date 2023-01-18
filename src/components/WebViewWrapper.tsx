@@ -1,36 +1,27 @@
 import React from 'react';
-import { WebView, WebViewMessageEvent } from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 import Loader from './Loader';
 import ErrorFallback from './Error';
-import type { EventResponse } from '../types';
+import type { WebViewProps } from '../types';
 import { Alert, Linking } from 'react-native';
 
-type WebViewProps = {
-  onClose: (response?: EventResponse) => void;
-  source: { uri: string };
-  onMessage: ((event: WebViewMessageEvent) => void) &
-    (({ nativeEvent: { data } }: any) => void);
-};
-
-const WebViewWrapper = ({ source, onMessage, onClose }: WebViewProps) => {
+const WebViewWrapper = ({
+  source,
+  onMessage,
+  onClose,
+  sdkType,
+}: WebViewProps) => {
   const onShouldStartLoadWithRequest = ({ url }: { url: string }) => {
-    const isExternal = url.includes('legal/end-user-agreement');
     if (!url) return false;
-    if (isExternal) {
-      Linking.canOpenURL(url).then((supported) => {
-        if (!supported) {
-          Alert.alert(
-            'Cannot open link at the moment. Please try again later.'
-          );
-          return false;
-        }
+    const isMain = url.includes('https://chain.thepeer.co');
+    if (isMain) return true;
 
-        Linking.openURL(url).then((res) => res);
-        return false;
-      });
-      return false;
-    }
-    return true;
+    Linking.canOpenURL(url).then((supported) => {
+      !supported
+        ? Alert.alert('Cannot open link at the moment. Please try again later.')
+        : Linking.openURL(url).then((res) => res);
+    });
+    return false;
   };
 
   return (
@@ -41,7 +32,9 @@ const WebViewWrapper = ({ source, onMessage, onClose }: WebViewProps) => {
         startInLoadingState: true,
         renderLoading: () => <Loader />,
         onShouldStartLoadWithRequest,
-        renderError: (error) => <ErrorFallback {...{ onClose, error }} />,
+        renderError: (error) => (
+          <ErrorFallback {...{ onClose, error, sdkType }} />
+        ),
       }}
     />
   );

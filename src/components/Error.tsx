@@ -1,19 +1,23 @@
 import React from 'react';
 import {
-  View,
   Image,
-  StyleSheet,
-  Text,
   Platform,
   Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
+import type { EventResponse } from '../types';
+import { closeResponse } from '../utils';
 
 const ErrorFallback = ({
   onClose,
   error,
+  sdkType,
 }: {
-  onClose: () => void;
+  onClose: (response: EventResponse) => void;
   error: any;
+  sdkType: string;
 }) => {
   console.error('error', error);
   return (
@@ -30,7 +34,7 @@ const ErrorFallback = ({
             alignSelf: 'flex-end',
           },
         ]}
-        onPress={onClose}
+        onPress={() => onClose(closeResponse[sdkType])}
       >
         <Image
           source={require('../assets/close.png')}

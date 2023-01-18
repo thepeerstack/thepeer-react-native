@@ -1,34 +1,31 @@
 import React from 'react';
-import { createUrl } from '../utils';
-import type { GeneralProps, CheckoutProps } from '../types';
+import { closeResponse, createUrl, handleMessage } from '../utils';
+import type { CheckoutProps, DispatchedMessage } from '../types';
 import FeaturesWrapper from '../components/FeaturesWrapper';
-import { CHECKOUT_SUCCESS, CHECKOUT_CLOSE } from '../variables';
 import WebViewWrapper from '../components/WebViewWrapper';
 
-const Checkout = (props: GeneralProps & CheckoutProps) => {
+const Checkout = (props: CheckoutProps) => {
   const { onClose, onSuccess, onError, openCheckoutSDK } = props;
-  const handleMessage = ({ nativeEvent: { data } }: any) => {
-    const response = JSON.parse(data);
-    switch (response.event) {
-      case CHECKOUT_CLOSE:
-        onClose(response);
-        break;
-      case CHECKOUT_SUCCESS:
-        onSuccess(response);
-        break;
-      default:
-        onError(response);
-        break;
-    }
-  };
+  const sdkType = 'checkout';
 
-  const sourceUrl = createUrl({ ...props, sdkType: 'checkout' });
+  const onMessage = ({ nativeEvent: { data } }: DispatchedMessage) =>
+    handleMessage({ onClose, onSuccess, onError, data });
+
+  const sourceUrl = createUrl({
+    ...props,
+    sdkType,
+    userReference: undefined,
+  });
   return (
-    <FeaturesWrapper visible={openCheckoutSDK} onRequestClose={onClose}>
+    <FeaturesWrapper
+      visible={openCheckoutSDK}
+      onRequestClose={() => onClose(closeResponse[sdkType])}
+    >
       <WebViewWrapper
         {...{
+          sdkType,
           source: { uri: sourceUrl },
-          onMessage: handleMessage,
+          onMessage,
           onClose,
         }}
       />

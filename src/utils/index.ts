@@ -1,4 +1,14 @@
-const isRequired = (prop: string, isValid: boolean) => {
+import type { EventResponse, GeneralProps, HandleMessage } from '../types';
+import {
+  CHECKOUT_CLOSE,
+  CHECKOUT_SUCCESS,
+  DIRECT_CHARGE_CLOSE,
+  DIRECT_CHARGE_SUCCESS,
+  SEND_CLOSE,
+  SEND_SUCCESS,
+} from '../variables';
+
+const isRequired = (prop: string, isValid: boolean): void => {
   if (isValid) return;
   throw new Error(`${prop} is required`);
 };
@@ -9,7 +19,7 @@ const validateAmount = ({
 }: {
   amount: string | number;
   currency: string;
-}) => {
+}): void => {
   if (!amount) return isRequired('amount', false);
 
   const amt = +amount;
@@ -24,7 +34,7 @@ const validateAmount = ({
   }
 };
 
-const validateConfig = (config: any) => {
+const validateConfig = (config: any): boolean => {
   const {
     amount,
     meta,
@@ -55,19 +65,55 @@ const validateConfig = (config: any) => {
   return true;
 };
 
-const createUrl = (config: any) => {
+const createUrl = (config: GeneralProps): string => {
   const configValid = validateConfig(config);
-  let base = 'https://groot.thepeer.co?';
-  // let base = 'https://chain.thepeer.co?';
+  let base = 'https://chain.thepeer.co?';
   if (!configValid) return base;
+  Object.keys(config).map((key) => {
+    const val = config[key];
 
-  Object.keys(config).map((k) => {
-    if (config[k]) {
-      const val = k === 'meta' ? JSON.stringify(config[k]) : config[k];
-      base = base.concat(`${k}=${val}&`);
+    if (val) {
+      const _val = key === 'meta' ? JSON.stringify(val) : val;
+      base = base.concat(`${key}=${_val}&`);
     }
   });
   return base.slice(0, -1);
 };
 
-export { isRequired, createUrl };
+const handleMessage = ({
+  data,
+  onClose,
+  onSuccess,
+  onError,
+}: HandleMessage) => {
+  const response = JSON.parse(data);
+  switch (response.event) {
+    case SEND_CLOSE:
+    case DIRECT_CHARGE_CLOSE:
+    case CHECKOUT_CLOSE:
+      onClose(response);
+      break;
+    case SEND_SUCCESS:
+    case DIRECT_CHARGE_SUCCESS:
+    case CHECKOUT_SUCCESS:
+      onSuccess(response);
+      break;
+    default:
+      onError(response);
+      break;
+  }
+};
+
+const closeResponse: {
+  [key: string]: EventResponse;
+} = {
+  checkout: { type: CHECKOUT_CLOSE, event: CHECKOUT_CLOSE, data: {} },
+  directCharge: {
+    type: DIRECT_CHARGE_CLOSE,
+    event: DIRECT_CHARGE_CLOSE,
+    data: {},
+  },
+  send: { type: SEND_CLOSE, event: SEND_CLOSE, data: {} },
+};
+
+export { isRequired, createUrl, handleMessage, closeResponse };
