@@ -1,9 +1,10 @@
 import type { WebViewMessageEvent } from 'react-native-webview';
 
+export type VoidFunc = () => void;
 export interface FeaturesWrapperProps {
   visible: boolean;
-  onRequestClose: () => void;
-  children: any;
+  onRequestClose: VoidFunc;
+  children: JSX.Element;
 }
 
 export interface MetaProps {
@@ -18,7 +19,7 @@ export type EventResponse = {
 
 export type Callback = (response: EventResponse) => void;
 
-export interface GeneralProps
+interface OmittedSDKType
   extends Record<
     string,
     string | number | MetaProps | Callback | boolean | undefined
@@ -27,30 +28,32 @@ export interface GeneralProps
   amount: string | number;
   meta?: MetaProps;
   currency?: string;
-  sdkType: string;
   onSuccess: Callback;
   onError: Callback;
-  onClose: Callback;
+  onClose: VoidFunc;
   userReference?: string;
 }
 
-export interface DirectDebitProps extends GeneralProps {
+export interface GeneralProps extends OmittedSDKType {
+  sdkType: string;
+}
+
+export interface DirectDebitProps extends OmittedSDKType {
   openDirectChargeSDK: boolean;
 }
 
-export interface SendProps extends GeneralProps {
+export interface SendProps extends OmittedSDKType {
   openSendSDK: boolean;
 }
 
-export interface CheckoutProps extends GeneralProps {
+export interface CheckoutProps extends OmittedSDKType {
   openCheckoutSDK: boolean;
   email: string;
 }
 
 export type WebViewProps = {
-  onClose: (response: EventResponse) => void;
+  onClose: VoidFunc;
   source: { uri: string };
-  sdkType: string;
   onMessage: ((event: WebViewMessageEvent) => void) &
     ((prop: DispatchedMessage) => void);
 };
@@ -65,5 +68,5 @@ export type HandleMessage = {
   data: string;
   onSuccess: Callback;
   onError: Callback;
-  onClose: Callback;
+  onClose: VoidFunc;
 };
