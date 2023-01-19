@@ -5,12 +5,7 @@ import ErrorFallback from './Error';
 import type { WebViewProps } from '../types';
 import { Alert, Linking } from 'react-native';
 
-const WebViewWrapper = ({
-  source,
-  onMessage,
-  onClose,
-  sdkType,
-}: WebViewProps) => {
+const WebViewWrapper = ({ source, onMessage, onClose }: WebViewProps) => {
   const onShouldStartLoadWithRequest = ({ url }: { url: string }) => {
     if (!url) return false;
     const isMain = url.includes('https://chain.thepeer.co');
@@ -32,9 +27,7 @@ const WebViewWrapper = ({
         startInLoadingState: true,
         renderLoading: () => <Loader />,
         onShouldStartLoadWithRequest,
-        renderError: (error) => (
-          <ErrorFallback {...{ onClose, error, sdkType }} />
-        ),
+        renderError: (error) => <ErrorFallback {...{ onClose, error }} />,
       }}
     />
   );

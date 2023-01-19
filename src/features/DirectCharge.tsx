@@ -1,5 +1,5 @@
 import React from 'react';
-import { closeResponse, createUrl, handleMessage } from '../utils';
+import { createUrl, handleMessage } from '../utils';
 import type { DirectDebitProps, DispatchedMessage } from '../types';
 import FeaturesWrapper from '../components/FeaturesWrapper';
 import WebViewWrapper from '../components/WebViewWrapper';
@@ -14,13 +14,9 @@ const DirectCharge = (props: DirectDebitProps) => {
   const sourceUrl = createUrl({ ...props, sdkType });
 
   return (
-    <FeaturesWrapper
-      visible={openDirectChargeSDK}
-      onRequestClose={() => onClose(closeResponse[sdkType])}
-    >
+    <FeaturesWrapper visible={openDirectChargeSDK} onRequestClose={onClose}>
       <WebViewWrapper
         {...{
-          sdkType,
           source: { uri: sourceUrl },
           onMessage,
           onClose,

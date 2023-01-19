@@ -1,6 +1,6 @@
 import React from 'react';
 import type { DispatchedMessage, SendProps } from '../types';
-import { closeResponse, createUrl, handleMessage } from '../utils';
+import { createUrl, handleMessage } from '../utils';
 import FeaturesWrapper from '../components/FeaturesWrapper';
 import WebViewWrapper from '../components/WebViewWrapper';
 
@@ -13,13 +13,9 @@ const Send = (props: SendProps) => {
   const sourceUrl = createUrl({ ...props, sdkType });
 
   return (
-    <FeaturesWrapper
-      visible={openSendSDK}
-      onRequestClose={() => onClose(closeResponse[sdkType])}
-    >
+    <FeaturesWrapper visible={openSendSDK} onRequestClose={onClose}>
       <WebViewWrapper
         {...{
-          sdkType,
           source: { uri: sourceUrl },
           onMessage,
           onClose,

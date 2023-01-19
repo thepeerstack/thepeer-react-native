@@ -1,4 +1,4 @@
-import type { EventResponse, GeneralProps, HandleMessage } from '../types';
+import type { GeneralProps, HandleMessage } from '../types';
 import {
   CHECKOUT_CLOSE,
   CHECKOUT_SUCCESS,
@@ -61,7 +61,6 @@ const validateConfig = (config: any): boolean => {
   if (meta && !(typeof meta === 'object' && !(meta instanceof Array))) {
     throw new Error('meta must be an object');
   }
-
   return true;
 };
 
@@ -71,7 +70,6 @@ const createUrl = (config: GeneralProps): string => {
   if (!configValid) return base;
   Object.keys(config).map((key) => {
     const val = config[key];
-
     if (val) {
       const _val = key === 'meta' ? JSON.stringify(val) : val;
       base = base.concat(`${key}=${_val}&`);
@@ -91,7 +89,7 @@ const handleMessage = ({
     case SEND_CLOSE:
     case DIRECT_CHARGE_CLOSE:
     case CHECKOUT_CLOSE:
-      onClose(response);
+      onClose();
       break;
     case SEND_SUCCESS:
     case DIRECT_CHARGE_SUCCESS:
@@ -104,16 +102,4 @@ const handleMessage = ({
   }
 };
 
-const closeResponse: {
-  [key: string]: EventResponse;
-} = {
-  checkout: { type: CHECKOUT_CLOSE, event: CHECKOUT_CLOSE, data: {} },
-  directCharge: {
-    type: DIRECT_CHARGE_CLOSE,
-    event: DIRECT_CHARGE_CLOSE,
-    data: {},
-  },
-  send: { type: SEND_CLOSE, event: SEND_CLOSE, data: {} },
-};
-
-export { isRequired, createUrl, handleMessage, closeResponse };
+export { isRequired, createUrl, handleMessage };

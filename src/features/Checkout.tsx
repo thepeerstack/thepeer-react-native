@@ -1,5 +1,5 @@
 import React from 'react';
-import { closeResponse, createUrl, handleMessage } from '../utils';
+import { createUrl, handleMessage } from '../utils';
 import type { CheckoutProps, DispatchedMessage } from '../types';
 import FeaturesWrapper from '../components/FeaturesWrapper';
 import WebViewWrapper from '../components/WebViewWrapper';
@@ -17,13 +17,9 @@ const Checkout = (props: CheckoutProps) => {
     userReference: undefined,
   });
   return (
-    <FeaturesWrapper
-      visible={openCheckoutSDK}
-      onRequestClose={() => onClose(closeResponse[sdkType])}
-    >
+    <FeaturesWrapper visible={openCheckoutSDK} onRequestClose={onClose}>
       <WebViewWrapper
         {...{
-          sdkType,
           source: { uri: sourceUrl },
           onMessage,
           onClose,
