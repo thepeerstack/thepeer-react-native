@@ -1,5 +1,6 @@
 import type { GeneralProps, HandleMessage } from '../types';
 import {
+  BASE_URL,
   CHECKOUT_CLOSE,
   CHECKOUT_SUCCESS,
   DIRECT_CHARGE_CLOSE,
@@ -13,60 +14,17 @@ const isRequired = (prop: string, isValid: boolean): void => {
   throw new Error(`${prop} is required`);
 };
 
-const validateAmount = ({
-  amount,
-  currency,
-}: {
-  amount: string | number;
-  currency: string;
-}): void => {
-  if (!amount) return isRequired('amount', false);
-
-  const amt = +amount;
-  if (!isNaN(amt)) {
-    if (currency === 'NGN' && amt < 10000) {
-      throw new Error('amount cannot be less than ₦100');
-    } else if (currency === 'USD' && amt < 500) {
-      throw new Error('amount cannot be less than $5');
-    }
-  } else {
-    throw new Error('amount must be a number');
-  }
-};
-
 const validateConfig = (config: any): boolean => {
-  const {
-    amount,
-    meta,
-    userReference,
-    publicKey,
-    onClose,
-    onSuccess,
-    onError,
-    currency,
-    sdkType,
-    email,
-  } = config;
-
-  isRequired('publicKey', !!publicKey);
+  const { onClose, onSuccess, onError } = config;
   isRequired('onClose callback', onClose !== undefined);
   isRequired('onError callback', onError !== undefined);
   isRequired('onSuccess callback', onSuccess !== undefined);
-  validateAmount({ amount, currency: currency || 'NGN' });
-
-  sdkType === 'checkout'
-    ? isRequired('email', !!email)
-    : isRequired('userReference', !!userReference);
-
-  if (meta && !(typeof meta === 'object' && !(meta instanceof Array))) {
-    throw new Error('meta must be an object');
-  }
   return true;
 };
 
 const createUrl = (config: GeneralProps): string => {
   const configValid = validateConfig(config);
-  let base = 'https://chain.thepeer.co?';
+  let base = BASE_URL + '?';
   if (!configValid) return base;
   Object.keys(config).map((key) => {
     const val = config[key];
@@ -102,4 +60,4 @@ const handleMessage = ({
   }
 };
 
-export { isRequired, createUrl, handleMessage };
+export { createUrl, handleMessage };
