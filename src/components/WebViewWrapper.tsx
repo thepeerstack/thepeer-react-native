@@ -3,12 +3,13 @@ import { WebView } from 'react-native-webview';
 import Loader from './Loader';
 import ErrorFallback from './Error';
 import type { WebViewProps } from '../types';
-import { Alert, Linking } from 'react-native';
+import { Alert, Linking, StatusBar } from 'react-native';
+import { BASE_URL } from '../variables';
 
 const WebViewWrapper = ({ source, onMessage, onClose }: WebViewProps) => {
   const onShouldStartLoadWithRequest = ({ url }: { url: string }) => {
     if (!url) return false;
-    const isMain = url.includes('https://chain.thepeer.co');
+    const isMain = url.includes(BASE_URL);
     if (isMain) return true;
 
     Linking.canOpenURL(url).then((supported) => {
@@ -19,17 +20,32 @@ const WebViewWrapper = ({ source, onMessage, onClose }: WebViewProps) => {
     return false;
   };
 
+  const onError = (e: any) => {
+    console.error(e);
+  };
+
   return (
-    <WebView
-      {...{
-        source,
-        onMessage,
-        startInLoadingState: true,
-        renderLoading: () => <Loader />,
-        onShouldStartLoadWithRequest,
-        renderError: (error) => <ErrorFallback {...{ onClose, error }} />,
-      }}
-    />
+    <>
+      <StatusBar
+        animated={true}
+        backgroundColor="#ffffff"
+        barStyle="dark-content"
+        hidden={false}
+      />
+      <WebView
+        {...{
+          onError,
+          source,
+          onMessage,
+          startInLoadingState: true,
+          renderLoading: () => <Loader />,
+          onShouldStartLoadWithRequest,
+          renderError: (error) => <ErrorFallback {...{ onClose, error }} />,
+          cacheEnabled: false,
+          cacheMode: 'LOAD_NO_CACHE',
+        }}
+      />
+    </>
   );
 };
 

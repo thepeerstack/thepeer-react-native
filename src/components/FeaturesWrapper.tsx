@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Modal, Platform, StyleSheet, View } from 'react-native';
 import type { FeaturesWrapperProps } from '../types';
 
 const FeaturesWrapper = ({
@@ -13,12 +13,6 @@ const FeaturesWrapper = ({
       transparent={true}
       {...{ visible, onRequestClose }}
     >
-      <StatusBar
-        animated={true}
-        backgroundColor="#ffffff"
-        barStyle="dark-content"
-        hidden={false}
-      />
       <View style={styles.container}>
         <View style={styles.mainView}>{children}</View>
       </View>
