@@ -1,18 +1,19 @@
 import React from 'react';
 import {
-  View,
   Image,
-  StyleSheet,
-  Text,
   Platform,
   Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
+import type { VoidFunc } from '../types';
 
 const ErrorFallback = ({
   onClose,
   error,
 }: {
-  onClose: () => void;
+  onClose: VoidFunc;
   error: any;
 }) => {
   console.error('error', error);

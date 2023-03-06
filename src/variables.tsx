@@ -4,6 +4,7 @@ const DIRECT_CHARGE_SUCCESS = 'direct_debit.success';
 const DIRECT_CHARGE_CLOSE = 'direct_debit.close';
 const CHECKOUT_SUCCESS = 'checkout.success';
 const CHECKOUT_CLOSE = 'checkout.close';
+const BASE_URL = 'https://chain.thepeer.co';
 
 export {
   SEND_SUCCESS,
@@ -12,4 +13,5 @@ export {
   DIRECT_CHARGE_CLOSE,
   CHECKOUT_CLOSE,
   CHECKOUT_SUCCESS,
+  BASE_URL,
 };

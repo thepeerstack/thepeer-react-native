@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Modal, StyleSheet, Platform } from 'react-native';
+import { Modal, Platform, StyleSheet, View } from 'react-native';
 import type { FeaturesWrapperProps } from '../types';
 
 const FeaturesWrapper = ({
@@ -23,17 +23,15 @@ const FeaturesWrapper = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: '#ffffff',
     paddingTop: Platform.OS === 'ios' ? 48 : 36,
     position: 'relative',
   },
   mainView: {
+    flex: 1,
     position: 'relative',
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
     backgroundColor: '#ffffff',
     overflow: 'hidden',
-    height: '100%',
   },
 });
 
