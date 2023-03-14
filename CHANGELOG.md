@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. Fixes, breaking changes and API changes
 
+
+### [0.2.6] - 03-03-2023
+Changes
+- Implement a navigation handler for external links: Links in webview would now open on the device's default browser and not on the same WebView.
+- Implemented a full screen modal for all SDKs
+- Better typing for each SDK's props
+- Created a function to handle all expected events
+- Only validating SDK props, pushing the rest onto to source to handle
+- Updated assets for ErrorFallback
+- Update primary colour
+- Version bump
+
+
 ### [0.2.5] - 03-08-2022
 Fixes
 - Fixed broken path to modules issue.
