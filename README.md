@@ -2,13 +2,19 @@
 
 Thepeer is a quick and secure way to send money across any business. The SDK handles connecting other businesses to your app.
 
-<img src='https://user-images.githubusercontent.com/23347440/130235552-28306fee-38ad-4879-8a75-650ebacdff07.png' alt='screenshot of Send SDK' width='250px' />
-<img src='https://user-images.githubusercontent.com/23347440/130235545-49ed32ee-31fe-4c63-8967-117b96bf52f3.png' alt='screenshot of Direct Charge SDK' width='250px' />
+<img src='https://github.com/thepeerstack/thepeer-react-native/assets/23347440/effe4e48-3841-44cb-a88b-43bc745f594b' alt='screenshot of Send SDK' width='250px' />
+<img src='https://github.com/thepeerstack/thepeer-react-native/assets/23347440/bb54e005-590b-43d7-bae5-7f51af4ac746' alt='screenshot of Direct Charge SDK' width='250px' />
 
 ## Installation
 
 ```sh
 npm install thepeer-react-native
+```
+
+or
+
+```sh
+yarn add thepeer-react-native
 ```
 
 You need to install `react-native-webview` if you don't have it installed. It's a dependency for this package. Here's a [link](https://github.com/react-native-webview/react-native-webview) to their docs.
@@ -25,7 +31,7 @@ import {
 } from 'thepeer-react-native';
 // ...
 
-const sendMoneyApp = () => {
+const sendApp = () => {
   const [openSendSDK, setOpenSendSDK] = useState(false);
   const closeSendSDK = () => setOpenSendSDK(false);
 
@@ -135,7 +141,7 @@ const checkoutApp = () => {
 ### <a name="publicKey"></a> `publicKey`
 
 **string: Required**
-Your public key can be found on your [dashboard](https://dashboard.thepeer.co) settings.
+Your public key can be found on your [dashboard settings](https://dashboard.thepeer.co/settings/api-keys-and-webhooks).
 
 ### <a name="userReference"></a> `userReference`
 
@@ -204,18 +210,20 @@ This is a prop to display/hide the sdk
 **string: Required**
 The user's email address.
 
-## Issues
-
-- `Tried to register two views with the same name RNCWebview` - The minimum version of the RN Webview package used for this project is `11.13.0`. Update your version to this version or later to fix this issue.
+## Common Issues
+#### Tried to register two views with the same name RNCWebview
+- The minimum version of the RN Webview package used for this project is `11.13.0`. Update your version to this version or later to fix this issue.
+- To know all the versions of react-native-webview within your project, run `npm ls react-native-webview`, and upgrade to the latest version.
 
 ## Support
 
 If you're having trouble with Thepeer React or your integration, please reach out to us at <support@thepeer.co>. We're more than happy to help you out.
 
-## Thepeer API References
+## Thepeer's API References
 
-- [Thepeer API Docs](https://docs.thepeer.co)
-- [Thepeer Dashboard](https://dashboard.thepeer.co)
+- [Thepeer's API Docs](https://docs.thepeer.co)
+- [Thepeer's Dashboard](https://dashboard.thepeer.co)
+
 
 ## License
 
