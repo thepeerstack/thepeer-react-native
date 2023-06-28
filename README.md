@@ -17,7 +17,7 @@ or
 yarn add thepeer-react-native
 ```
 
-You need to install `react-native-webview` if you don't have it installed. It's a dependency for this package. Here's a [link](https://github.com/react-native-webview/react-native-webview) to their docs.
+You need to install `react-native-webview` if you don't have it installed. It's a dependency for this package. Here's a <a href='https://github.com/react-native-webview/react-native-webview' rel='noopener noreferrer' target='_blank'>link</a> to their docs.
 
 ## Usage
 
@@ -141,7 +141,7 @@ const checkoutApp = () => {
 ### <a name="publicKey"></a> `publicKey`
 
 **string: Required**
-Your public key can be found on your [dashboard settings](https://dashboard.thepeer.co/settings/api-keys-and-webhooks).
+Your public key can be found on your <a href='https://dashboard.thepeer.co/settings/api-keys-and-webhooks' rel='noopener noreferrer' target='_blank'>dashboard settings</a>.
 
 ### <a name="userReference"></a> `userReference`
 
@@ -161,16 +161,19 @@ The currency being used. Defaults to **NGN**
 ### <a name="onSuccess"></a> `onSuccess`
 
 **(response) => void: Required**
-This is called when a transaction is successfully. It returns a response with event type and transaction details.
+This is called when a transaction is successfully. It returns a response with event type and transaction object.
 
-See the [event details](#thepeerEvent) below.
+
+See the <a href='https://docs.thepeer.co/process-authorization-requests#supported-values' rel='noopener noreferrer' target='_blank'>event types</a>.
+
+See the <a href='https://docs.thepeer.co/transaction/transaction-object' rel='noopener noreferrer' target='_blank'>transaction object</a>.
 
 ### <a name="onError"></a> `onError`
 
 **(response) => void: Required**
 This is called when a transaction fails. It returns a response with event type
 
-See the [event details](#thepeerEvent) below.
+See the <a href='https://docs.thepeer.co/process-authorization-requests#supported-values' rel='noopener noreferrer' target='_blank'>event types</a>.
 
 ### <a name="onClose"></a> `onClose`
 
@@ -221,8 +224,8 @@ If you're having trouble with Thepeer React or your integration, please reach ou
 
 ## Thepeer's API References
 
-- [Thepeer's API Docs](https://docs.thepeer.co)
-- [Thepeer's Dashboard](https://dashboard.thepeer.co)
+- <a href='https://docs.thepeer.co' rel='noopener noreferrer' target='_blank'>Thepeer's API Docs</a>
+- <a href='https://dashboard.thepeer.co' rel='noopener noreferrer' target='_blank'>Thepeer's Dashboard</a>
 
 
 ## License
